@@ -1,186 +1,142 @@
-# PARKINSON-S-DISEASE-DETECTION-USING-HAND-DRAWN-IMAGES
+# Parkinson's Disease Detection Using Hand-Drawn Images 🧠🖊️
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-green)](https://www.python.org/)
-[![Android](https://img.shields.io/badge/Android-Kotlin-orange)](https://developer.android.com/kotlin)
-[![TensorFlow Lite](https://img.shields.io/badge/TensorFlow-Lite-blue)](https://www.tensorflow.org/lite)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-A lightweight, two-stage diagnostic framework that detects whether an individual shows signs of Parkinson's Disease by analyzing hand-drawn images (spirals and waves) — **without** requiring external cloud API calls.
-
-The goal of this project is to implement a resource-efficient setup based on custom Convolutional Neural Networks (DeepCNN) and Transfer Learning architectures (VGG16, ResNet50), making the diagnostic system accessible both as a local Tkinter desktop app and as a mobile application running on Android via TensorFlow Lite.
+An end-to-end intelligent diagnostic system that detects **Parkinson's Disease** from hand-drawn drawings (like spirals and waves) using Deep Learning. The system comprises a model-training pipeline, a Tkinter desktop application for comparison/diagnostics, and an Android mobile application for real-time mobile inference.
 
 ---
 
-## Architecture
+## 📌 Project Overview
 
-The workflow consists of model training, desktop comparison, and a mobile application running local real-time inference:
+Parkinson's Disease (PD) is a progressive neurological disorder that heavily affects motor functions. Handwriting and drawing impairments (such as hand tremors and bradykinesia) are key early indicators. 
 
-```
-Hand-Drawn Spiral/Wave Image
-    │
-    ▼
-┌─────────────────────────────────────────┐
-│ Stage 1: Pre-processing & Feature Ext.  │  ← Normalization & Resize
-│ Input: Uploaded Image                   │     64x64 (DeepCNN) or
-│ Output: Normalized tensor               │     224x224 (VGG16/ResNet50)
-└─────────────────────────────────────────┘
-    │ Pre-processed Tensor
-    ▼
-┌─────────────────────────────────────────┐
-│ Stage 2: Deep Learning Classifier       │  ← Mobile: TensorFlow Lite
-│ Model Option: VGG16 / DeepCNN / ResNet50│     Desktop: Keras Backend
-│ Output: Healthy (0) / Parkinson's (1)   │     Local Real-Time Diagnostics
-└─────────────────────────────────────────┘
+This project implements:
+1. **Deep Learning Training Suite:** Scripts to train, validate, and compare **VGG16**, **ResNet50**, and custom **DeepCNN** architectures on drawing datasets.
+2. **Interactive Desktop GUI (Tkinter):** A dashboard where users can read educational info, load trained weights, upload drawing images, test individual predictions, and view/compare metrics (Accuracy, Loss, Precision, Recall).
+3. **Android Mobile App:** A mobile application that leverages **TensorFlow Lite (TFLite)** to run local, fast inference on drawings directly from a smartphone.
+
+---
+
+## 🛠️ System Architecture
+
+```mermaid
+graph TD
+    A[Drawings Dataset: Spirals/Waves] --> B[Training Scripts: testtrain.py]
+    B --> C[(Trained Models: .h5 / .json)]
+    C --> D[Tkinter Desktop App]
+    C -->|Convert to TFLite| E[app/src/main/assets/model2.tflite]
+    E --> F[Android Mobile App]
 ```
 
 ---
 
-## How It Works
+## 📊 Deep Learning Models
 
-Most state-of-the-art diagnostic imaging pipelines require heavy cloud computing and expensive API query latency. This framework brings detection straight to the local device:
+Three models are trained and compared in this project:
 
-1. **Pre-processing:** Hand-drawn images (spiral or wave tests) are loaded, normalized, and resized (either to $64 \times 64$ for DeepCNN or $224 \times 224$ for Transfer Learning models).
-2. **Deep Learning Classification:** A selected local neural network analyzes the handwriting artifacts (such as tremors, stroke pressure differences, and line inconsistencies).
-3. **Divergence Gap:** The models evaluate diagnostic features. VGG16 maps spatial anomalies with high accuracy, while DeepCNN provides a lightweight alternative that runs quickly with minimal memory footprint.
-
----
-
-## Features
-
-- **Multi-Model Support:** Includes training pipelines and weights for DeepCNN, VGG16, and ResNet50.
-- **Tkinter Desktop Interface:** Allows loading model weights, testing drawing images, and visualizing accuracy/loss curves.
-- **Model Comparison Dashboard:** Side-by-side epoch-wise plotting of Precision, Recall, Accuracy, and Loss.
-- **Mobile Diagnostic App:** Local Android application built in Kotlin, running offline classification using an embedded TensorFlow Lite model.
-- **Interactive Canvas & Camera:** Diagnoses drawings directly from paper photos or canvas inputs.
-- **Educational Information Dashboard:** Shows Parkinson's symptoms, causes, early detection facts, and treatment guides.
+| Model | Type | Input Size | Training Epochs | Target Accuracy | Key Characteristics |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **DeepCNN** | Custom Sequential CNN | $64 \times 64$ | 20 Epochs | ~98.6% | Standard 2D Conv & MaxPool layers; lightweight and fast to train. |
+| **ResNet50** | Transfer Learning | $224 \times 224$ | 100 Epochs | ~77.8% | Pre-trained ResNet50 base with custom dense output layers. |
+| **VGG16** | Transfer Learning | $224 \times 224$ | 10 Epochs | ~99.3% | Feature extraction using VGG16 base with custom Dense layer + Dropout. Highly accurate. |
 
 ---
 
-## Results
+## 📂 Repository Directory Structure
 
-| Model Architecture | Accuracy | Precision | Recall | Target Resource Target | Key Benefit |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **VGG16 Transfer Learning** | **99.31%** | High | High | Desktop & Mobile | Most accurate; captures minute drawing tremors |
-| **DeepCNN (Custom)** | **98.60%** | Medium-High | High | Desktop & Mobile | Very lightweight (~64x64 inputs); fast inference |
-| **ResNet50 Transfer Learning** | **77.80%** | Medium | Medium | Desktop | High depth; useful for complex dataset patterns |
-
----
-
-## Visualizations
-
-### Exploratory Data Analysis
-Model performance is tracked during training and cached as Pickle logs (`.pckl`). You can view these metrics directly in the desktop application.
-
-### Comparison Dashboard
-The comparison view plots the following subplots for all three models simultaneously across epochs:
-1. **Model Precision Comparison**
-2. **Model Recall Comparison**
-3. **Model Accuracy Comparison**
-4. **Model Loss Comparison**
-
----
-
-## Repository Structure
-
-```text
+```directory
 Parkinson's_Project/
-├── README.md                      # This file
-├── .gitignore                     # Git configuration to ignore build files/local credentials
-├── readme.pdf                     # Project documentation/guide PDF
-├── Execution Video.mp4            # Step-by-step walkthrough demo of the systems
 │
-└── Project Codes/
+├── README.md                      # Project documentation (this file)
+├── .gitignore                     # Git rules to ignore build files/credentials
+├── readme.pdf                     # Project documentation/guide PDF
+├── Execution Video.mp4            # Demo/Walkthrough video of the system
+│
+└── Project Codes/                 # Contains source codes
     ├── ParkinsonPrediction.py     # Main Tkinter Desktop Application
-    ├── testtrain.py               # DeepCNN training script (saves to 'model/')
-    ├── testtrain1.py              # ResNet50 training script (saves to 'model1/')
-    ├── testtrain2.py              # VGG16 training script (saves to 'model2/')
+    ├── testtrain.py               # DeepCNN training script
+    ├── testtrain1.py              # ResNet50 training script
+    ├── testtrain2.py              # VGG16 training script
     │
     └── Parkinson's Disease Detection/  # Android Project Directory
-        ├── build.gradle.kts       # Project-level Gradle configuration
+        ├── build.gradle.kts       # Project-level Gradle config
+        ├── settings.gradle.kts    # Gradle settings
         └── app/
             ├── build.gradle.kts   # App-level module configuration
             └── src/main/
+                ├── AndroidManifest.xml
                 ├── assets/
-                │   └── model2.tflite  # Mobile TensorFlow Lite model
-                └── java/com/example/parkinsonsdiseasedetection/
-                    ├── MainActivity.kt          # Landing Screen
-                    ├── DetectParkinsonActivity.kt # TFLite Drawing Inference Screen
-                    ├── KnowParkinsonActivity.kt   # Symptoms & Causes info
-                    └── ExploreActivity.kt         # Health explorer UI
+                │   └── model2.tflite  # Embedded TensorFlow Lite model
+                ├── java/com/example/parkinsonsdiseasedetection/
+                │   ├── MainActivity.kt          # Landing Screen
+                │   ├── DetectParkinsonActivity.kt # Draw/Upload & TFLite Inference
+                │   ├── KnowParkinsonActivity.kt   # Educational Details Screen
+                │   └── ExploreActivity.kt         # Health explorer UI
+                └── res/
+                    ├── layout/    # UI Views (activity_main.xml, etc.)
+                    └── drawable/  # Graphics & Image assets
 ```
 
 ---
 
-## Datasets
+## 💻 1. Desktop GUI Application (Tkinter)
 
-The training pipeline uses the following dataset structure:
+The desktop application provides a user-friendly layout to explore the project.
 
-| Split | Location | Categories | Description |
-| :--- | :--- | :--- | :--- |
-| **Training Set** | `dataset/train/` | `healthy/`, `parkinson/` | Base drawing images (spirals and wave drawings) |
-| **Testing Set** | `dataset/test/` | `healthy/`, `parkinson/` | Validation drawings to evaluate model generalization |
+### Features
+* **Learn About Parkinson’s:** Educational screen highlighting Symptoms, Causes, Diagnosis, Treatments, and AI's role.
+* **Test for Parkinson’s:** Load any of the three models, select a test image (e.g. a drawing), run the classifier, and view the visual diagnosis (Healthy vs. Parkinson).
+* **Performance Graphs:** View training history (Accuracy vs. Loss) for the selected model.
+* **Compare Models:** Automatically plot performance comparison graphs (Precision, Recall, Accuracy, Loss) side-by-side.
+
+### Setup and Execution
+1. Install dependencies:
+   ```bash
+   pip install opencv-python numpy tensorflow pandas matplotlib pillow
+   ```
+2. Run the application:
+   ```bash
+   python "Project Codes/ParkinsonPrediction.py"
+   ```
 
 ---
 
-## Quickstart
+## 📱 2. Android Mobile Application
 
-### 1. Run the Desktop GUI App
-Install the python requirements and run the prediction app:
-```bash
-pip install opencv-python numpy tensorflow pandas matplotlib pillow scikit-learn
-python "Project Codes/ParkinsonPrediction.py"
-```
+An Android app allowing portable, real-time diagnostic testing.
 
-### 2. Build the Android Mobile App
+### Features
+* **Mobile Inference:** Integrates TensorFlow Lite (`model2.tflite`) for instant local image classification.
+* **Simple UI:** Landing dashboard with direct access to Diagnosis, Precaution Tips, and Parkinson's Information.
+* **Camera / Gallery Integration:** Upload drawing photos to get instant results.
+
+### Setup and Build
 1. Open the folder `Project Codes/Parkinson's Disease Detection` in **Android Studio**.
-2. Connect your Android phone (ensure USB Debugging is turned on).
-3. Click **Run** (`Shift + F10`) to build the project and install it on your device.
-
-### 3. Run Training Pipelines
-To retrain the models on new drawing datasets:
-* For Custom DeepCNN: `python "Project Codes/testtrain.py"`
-* For ResNet50: `python "Project Codes/testtrain1.py"`
-* For VGG16: `python "Project Codes/testtrain2.py"`
+2. Wait for Gradle sync to complete.
+3. Connect an Android device (via USB Debugging) or start an Emulator.
+4. Click **Run** (`Shift + F10`) to build the project and install the APK.
 
 ---
 
-## Script Sections
+## 🧠 3. Model Training Pipeline
 
-| File | Type | Description |
-| :--- | :--- | :--- |
-| `ParkinsonPrediction.py` | GUI Application | Integrates Tkinter window, model selectors, inference visualizer, and comparative matplotlib plots. |
-| `testtrain.py` | Keras / TF script | Prepares $64 \times 64$ dataset, trains DeepCNN model, evaluates performance, and outputs pickle statistics. |
-| `testtrain1.py` | Keras / TF script | Prepares $224 \times 224$ dataset, trains ResNet50 base with custom dense layer, and exports performance curves. |
-| `testtrain2.py` | Keras / TF script | Prepares $224 \times 224$ dataset, trains VGG16 transfer model, and prints classification reports. |
+If you want to train models from scratch:
 
----
-
-## Key Design Decisions
-
-| Choice | Why |
-| :--- | :--- |
-| **Offline Inference (TFLite)** | Guarantees instant diagnostic output with zero latency and high data privacy. |
-| **Image Resolution Reduction** | Using $64\times64$ inputs for DeepCNN allows fast desktop classification with minimal RAM consumption. |
-| **Transfer Learning on VGG16** | Leverages pre-trained ImageNet weights, achieving **99.31% accuracy** even with small handwriting datasets. |
-| **Pickled Training Logs** | Enables the desktop UI to display instant comparative graphs without re-evaluating the datasets. |
-
----
-
-## Requirements
-
-The python environment expects:
-* `tensorflow>=2.10.0`
-* `opencv-python>=4.6.0`
-* `numpy>=1.23.0`
-* `matplotlib>=3.6.0`
-* `scikit-learn>=1.1.0`
-* `pillow>=9.2.0`
-* `pandas>=1.5.0`
+1. Prepare your training dataset in the following hierarchy:
+   ```directory
+   dataset/
+   ├── train/
+   │   ├── healthy/
+   │   └── parkinson/
+   └── test/
+       ├── healthy/
+       └── parkinson/
+   ```
+2. Run the desired script:
+   - For **DeepCNN**: `python "Project Codes/testtrain.py"`
+   - For **ResNet50**: `python "Project Codes/testtrain1.py"`
+   - For **VGG16**: `python "Project Codes/testtrain2.py"`
+3. The trained models (`.json` for architecture and `.h5` for weights) and logs (`.pckl`) will be saved in folders `model`, `model1`, and `model2` respectively.
 
 ---
 
-## Author
-**keerthireddy8595**
-
-## License
-MIT — see [LICENSE](LICENSE) for details.
+## 📜 License
+This project is open-source and available under the MIT License.
