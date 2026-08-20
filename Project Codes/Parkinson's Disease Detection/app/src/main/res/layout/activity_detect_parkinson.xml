@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/gradient_bg"
+    tools:context=".DetectParkinsonActivity"
+    android:gravity="center">
+
+    <!-- Square Image -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Button Container to Center the Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Select Image Button -->
+        <Button
+            android:id="@+id/selectButton"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:text="Select Image"
+            android:backgroundTint="@color/white"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Classify Image Button -->
+        <Button
+            android:id="@+id/classifyButton"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:text="Classify Image"
+            android:textStyle="bold"
+            android:backgroundTint="@color/white"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <!-- Result Text -->
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_red_dark" />
+
+</LinearLayout>

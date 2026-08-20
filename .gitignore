@@ -1,0 +1,45 @@
+# ==========================================
+# Git Ignore File for Parkinson's Disease Project
+# ==========================================
+
+# 1. Large zip files and media
+Project Codes/Parkinson_s Disease Detection.zip
+Project Codes/Parkinson_s_Disease_Detection.zip
+*.zip
+*.tar.gz
+*.mp4
+
+# 2. Local properties and credentials
+**/local.properties
+**/key.properties
+**/*.keystore
+**/*.jks
+**/google-services.json
+
+# 3. Android build outputs and caches
+**/build/
+**/.gradle/
+**/captures/
+.gradle/
+build/
+app/build/
+
+# 4. IDE specific directories
+**/.idea/
+**/.settings/
+**/*.iml
+.idea/
+
+# 5. OS and file system specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 6. Python caches and logs
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+*.log

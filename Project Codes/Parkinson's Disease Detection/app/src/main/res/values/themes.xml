@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.ParkinsonDiseaseDetection" parent="Theme.Material3.Light">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryContainer">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/purple_200</item>
+
+        <!-- Status bar and Navigation bar colors -->
+        <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:navigationBarColor">@color/black</item>
+
+        <!-- Background color -->
+        <item name="android:windowBackground">@color/white</item>
+
+        <!-- Enable edge-to-edge UI -->
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

@@ -1,0 +1,64 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg"
+    tools:context=".ExploreActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:gravity="center">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/exploreTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Explore Parkinson's Disease"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:textColor="@android:color/white" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="370dp"
+            android:layout_height="300dp"
+            android:layout_marginBottom="5dp"
+            android:contentDescription="Parkinson Image"
+            android:scaleType="fitCenter"
+            android:src="@drawable/parkinson1" />
+
+        <!-- Know About Parkinson -->
+        <Button
+            android:id="@+id/knowButton"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:text="Know About Parkinson"
+            android:backgroundTint="@color/white"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"
+            android:padding="10dp"
+            android:elevation="8dp" />
+
+        <!-- Detect Parkinson -->
+        <Button
+            android:id="@+id/detectButton"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:text="Detect Parkinson"
+            android:backgroundTint="@color/white"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:elevation="8dp" />
+
+    </LinearLayout>
+</ScrollView>

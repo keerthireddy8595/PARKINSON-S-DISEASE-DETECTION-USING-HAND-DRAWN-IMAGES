@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Parkinson Disease Detection</string>
+    <string-array name="dropdown_options">
+        <item>Know About Parkinson</item>
+        <item>Detect Parkinson</item>
+    </string-array>
+</resources>
